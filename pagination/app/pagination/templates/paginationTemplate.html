@@ -1,9 +1,9 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-<h4>Angular Pagination</h4>
+<h4 style="text-align:center">Angular Pagination</h4>
 <!-- {{data}} -->
 <div class="table" ng-controller="pageCntrl"> <table class="table">
-				{{message}}
+			
                         <table class="table table-striped table-hover">
                             <thead  class="thead-dark">
                                 <tr>
@@ -15,42 +15,47 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="list in newlist">
+                               
                                     <td>{{$index +1}}</td>
                                     <td>{{list.category}}</td>
                                     <td>{{list.question}}</td>
                                     <td>{{list.correct_answer}}</td>
                                 </tr>
                             </tbody>
-                        </table>     
+                        </table>   
+                           {{message}}  
       </div>  
 </div> 
 <nav aria-label="Page navigation example">
       <label> No.of items per page: </label>
-      <input type="text" ng-model="itemsPerPage">
-  <ul class="pagination">
+      <input class="field" type="number" maxlength="4" min="1"  max="data.length"size="3" ng-model="itemsPerPage">
+  <ul class="pagination" ng-hide="currentPage>numberofpages">
+  <button  ng-if="currentPage>numberofpages" ng-class = "{button: currentPage>numberofpages}"> Go Back</button>
 
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous" ng-click= "previous(num)">
+      <a class="page-link" href="#" aria-label="Previous" ng-disabled="currentPage==numberofpages" ng-click= "previous(num)">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">Previous</span>
       </a>
 
     </li> 
     <a class="page-link" href="#" ng-click="thisPage(num)" ng-repeat="num in subarrayCurrentpage track by $index" ng-class="{active: num==currentPage}">{{num}}</a>
-  <br>
+    
     <li class="page-item"><a class="page-link" href="#"> Current page {{currentPage}}</a></li>
 
  <!--   <br> -->
-    <li class="page-item"><a class="page-link" href="#">{{number}}</a></li>
+    <li class="page-item"><a class="page-link" href="#">{{numberofpages}}</a></li>
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next" ng-click= "next()">
+      <a class="page-link" href="#" aria-label="Next" ng-disabled= "currentPage==numberofpages" ng-click= "next()">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
       </a>
     </li>
-  </ul>
-   <label class="Currentpage"> Currentpage: </label>
-      <input type="text">
-      <i class="material-icons button" ng-model="value" ng-click="thisPage(value)">forward</i>
+  </ul></nav>
+ 
+   <label class="Currentpage"> Jump to: </label>
+      <input class="field" type="number" min="1" max="number" ng-click="thisPage(currentPage)" ng-model="currentPage" >
+      <!-- <button  ng-click="thisPage(currentPage)"> Jump to</button> -->
+      <!-- <i class="material-icons button" >forward</i> -->
 			</span>
-</nav>
+      </form>
